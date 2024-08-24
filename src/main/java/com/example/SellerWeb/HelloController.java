@@ -8,7 +8,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HelloController {
     @GetMapping("/")
     public String index() {
-        return "hello hien";
+        return "hello hien vu";
+    }
+
+    @GetMapping("/user")
+    public String userPage() {
+        return "only user can access this page";
+    }
+
+    @GetMapping("/admin")
+    public String adminPage() {
+        return "only admin can access this page";
     }
 
 }

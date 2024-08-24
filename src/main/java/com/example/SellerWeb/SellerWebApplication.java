@@ -2,28 +2,26 @@ package com.example.SellerWeb;
 
 import javax.swing.Spring;
 
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class SellerWebApplication {
 
-	// Spring nói chung là một frameWorks để build java application
-	// Tuy nhiên,setup cấu hình Spring truyền thống rất phức tạp
-
-	// Spring boot=spring+boot và vai trò của nó
-	// - Làm đơn giản hóa quá trình xây dựng Java app sử dụng Spring framework
-	// - Giảm thiểu tối đa quá trình "cấu hình" cho dự án:
-	// - đơn giản hóa quá trình cài đặt thư viện, quản lý cấu hình thông qua
-	// maven...
-	// - cung cấp sẵn server để chạy ứng dụng (embedded HTTP server)
-	// (không cần phải cài đặt server riêng lẻ)
-
-	// một Java application gồm các phần
-	// - Spring boot,Spring REST,Spring MVC,..
-
 	public static void main(String[] args) {
 		SpringApplication.run(SellerWebApplication.class, args);
+		System.out.println("server is running at http:://localhost:8080");
 	}
 
+	// 1 Mô hình MVC(Model-View-Controller)
+	// -Model: tương tác dữ liệu với DB
+	// -View:render views(những phần client nhìn thấy)
+	// -Controller:sau khi khớp route, controller xử lí logic bên model,views và trả
+	// về response
+
+	// 2. Khái niệm annotation
+	// -Annotation có vai trò chú thích cho class,method,attributes
+	// -khi sử dụng annotation là kích hoạt code của spring framework để xử lí logic
+	// -Đa phần khi code ta dùng các annotation có sẵn trong spring
 }
