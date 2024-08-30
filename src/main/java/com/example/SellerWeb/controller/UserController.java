@@ -7,27 +7,52 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.SellerWeb.domain.User;
+import com.example.SellerWeb.repository.UserRepository;
 import com.example.SellerWeb.service.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import java.util.List;
 
 @Controller
 public class UserController {
-    // nạp class userService theo design pattern dependency injection
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    // Controller chỉ có vai trò điều hướng,logic viết trong service
-    @GetMapping("/")
-    public String getHomePage(Model model) {
-        // -Truyền data vào trong view bằng Model, chúng ta add thuộc tính bằng hàm
-        // addAttribute(key,value)
-        // -Những cái key-value chúng ta sẽ truy cập được trong view
-        model.addAttribute("hello_message", this.userService.handleHello());
-        model.addAttribute("footer", "hihi");
-        return "client/hello";
+    @RequestMapping(value = "/admin/user", method = RequestMethod.GET)
+    public String getUser(Model model) {
+        List<User> users = this.userService.getAllUser();
+        System.out.println(users);
+        model.addAttribute("users", users);
+        return "admin/user/table-user";
+    }
+
+    @RequestMapping(value = "/admin/user/create", method = RequestMethod.GET)
+    public String createUserPage(Model model) {
+        // Truyền model User để form ánh xạ
+        model.addAttribute("newUser", new User());
+        return "admin/user/create";
+    }
+
+    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
+    public String storeUser(@ModelAttribute("newUser") User user, @RequestParam("email") String email) {
+        // Annotation @ModelAttrinute để mapping object và form submit . nó sẽ ánh xạ
+        // object với các attributes từ form
+
+        // Lưu ý về @ModelAttribute Annotation : là cách chúng ta convert dữ liệu từ
+        // View trả cho controller xử lý
+
+        // @RequestParams có thể lấy data một Attribute từ form,hoặc từ dynamic url
+
+        // Có thể code form bình thường hoặc form JSTL (ModelAttribute đều hỗ trợ)
+        // Tuy nhiên nếu form bằng JSTL ta phải truyền object vào view để nó ánh xạ
+
+       
+        this.userService.handleSaveUser(user);
+        return "redirect:/admin/user";
     }
 }
