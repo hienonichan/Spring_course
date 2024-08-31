@@ -28,4 +28,12 @@ public class UserService {
     public List<User> findByEmail(String email) {
         return this.userRepository.findByEmail(email);
     }
+
+    public User getUserById(long id) {
+        return this.userRepository.findById(id);
+    }
+
+    public void deleteUserById(long id) {
+        this.userRepository.deleteById(id);
+    }
 }

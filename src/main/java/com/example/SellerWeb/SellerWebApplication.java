@@ -41,5 +41,8 @@ public class SellerWebApplication {
 		// Optional findById(Long id);
 		// }
 
+		// 8 Để làm việc với url động ta có annotation @PathVariable để lấy data
+		// variable từ url
+		// @RequestMapping(/admin/user/{id}) để khai báo url động
 	}
 }

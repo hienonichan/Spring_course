@@ -12,7 +12,9 @@ import com.example.SellerWeb.domain.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     User save(User user);
 
-    Optional findById(Long id);
-
     List<User> findByEmail(String email);
+
+    User findById(long id);
+
+    void deleteById(long id);
 }
