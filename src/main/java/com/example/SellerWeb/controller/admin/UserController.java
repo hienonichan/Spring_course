@@ -1,28 +1,31 @@
-package com.example.SellerWeb.controller;
+package com.example.SellerWeb.controller.admin;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.SellerWeb.domain.User;
-import com.example.SellerWeb.repository.UserRepository;
+import com.example.SellerWeb.service.UploadService;
 import com.example.SellerWeb.service.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class UserController {
     private final UserService userService;
+    private final UploadService uploadService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UploadService uploadService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.uploadService = uploadService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/admin/user/{id}")
@@ -35,9 +38,8 @@ public class UserController {
     @GetMapping("/admin/user")
     public String getUser(Model model) {
         List<User> users = this.userService.getAllUser();
-        System.out.println(users);
         model.addAttribute("users", users);
-        return "admin/user/table-user";
+        return "admin/user/show";
     }
 
     @GetMapping("/admin/user/create")
@@ -48,18 +50,14 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/create")
-    public String storeUser(@ModelAttribute("newUser") User user, @RequestParam("email") String email) {
-        // Annotation @ModelAttrinute để mapping object và form submit . nó sẽ ánh xạ
-        // object với các attributes từ form
-
-        // Lưu ý về @ModelAttribute Annotation : là cách chúng ta convert dữ liệu từ
-        // View trả cho controller xử lý
-
-        // @RequestParams có thể lấy data một Attribute từ form,hoặc từ dynamic url
-
-        // Có thể code form bình thường hoặc form JSTL (ModelAttribute đều hỗ trợ)
-        // Tuy nhiên nếu form bằng JSTL ta phải truyền object vào view để nó ánh xạ
-
+    public String storeUser(@ModelAttribute("newUser") User user, @RequestParam("email") String email,
+            @RequestParam("avatarFile") MultipartFile file) {
+        String fileName = this.uploadService.handleSaveUploadFile(file, "avatar");
+        String hashPassword = this.passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashPassword);
+        user.setAvatar(fileName);
+        // khi setter Role như này thì spring sẽ auto chèn id vào role_id
+        user.setRole(this.userService.getRoleByName(user.getRole().getName()));
         this.userService.handleSaveUser(user);
         return "redirect:/admin/user";
     }
