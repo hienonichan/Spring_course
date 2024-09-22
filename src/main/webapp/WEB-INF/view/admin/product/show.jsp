@@ -28,32 +28,37 @@
                                 <div class="row">
                                     <div class="d-flex justify-content-between">
                                         <h3>Table products</h3>
-                                        <a href="/admin/user/create" class="btn btn-primary">Create a user</a>
+                                        <a href="/admin/product/create" class="btn btn-primary">Create a product</a>
                                     </div>
                                 </div>
+                                <hr />
                                 <div class="row">
                                     <div class="col mx-auto">
                                         <table class="table table-hover table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">Id</th>
-                                                    <th scope="col">Email</th>
                                                     <th scope="col">Name</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Target</th>
+                                                    <th scope="col">Factory</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:forEach items="${users}" var="user">
+                                                <c:forEach items="${products}" var="product">
                                                     <tr>
-                                                        <th scope="row">${user.getId()}</th>
-                                                        <td>${user.getEmail()}</td>
-                                                        <td>${user.getName()}</td>
+                                                        <th scope="row">${product.getId()}</th>
+                                                        <td>${product.getName()}</td>
+                                                        <td>${product.getPrice()}</td>
+                                                        <td>${product.getTarget()}</td>
+                                                        <td>${product.getFactory()}</td>
                                                         <td>
-                                                            <a href="/admin/user/${user.getId()}"
+                                                            <a href="/admin/product/${product.getId()}"
                                                                 class="btn btn-success">View</a>
-                                                            <a href="/admin/user/${user.getId()}/update"
+                                                            <a href="/admin/product/${product.getId()}/update"
                                                                 class="btn btn-warning">Update</a>
-                                                            <a href="/admin/user/${user.getId()}/delete"
+                                                            <a href="/admin/product/${product.getId()}/delete"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>

@@ -1,9 +1,6 @@
 package com.example.SellerWeb.domain;
 
 import java.util.List;
-
-import org.eclipse.tags.shaded.org.apache.xalan.xsltc.compiler.sym;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +9,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "products")
@@ -20,13 +21,26 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull()
+    @Size(min = 3, message = "Name must have at least 3 letters!")
     private String name;
+
+    @NotNull()
+    @Min(value = 0, message = "Price must be greater than 0")
     private double price;
+
     private String image;
+
+    @NotNull()
+    @NotEmpty(message = "Must have detail description!")
     private String detailDesc;
-    private String shortDecs;
+
+    @NotNull()
+    @NotEmpty(message = "Must have short description!")
+    private String shortDesc;
+
+    @Min(value = 1, message = "quanity must be greater or equal 1!")
     private long quantity;
-    private long sold;
     private String factory;
     private String target;
 
@@ -73,12 +87,12 @@ public class Product {
         this.detailDesc = detailDesc;
     }
 
-    public String getShortDecs() {
-        return shortDecs;
+    public String getShortDesc() {
+        return shortDesc;
     }
 
-    public void setShortDecs(String shortDecs) {
-        this.shortDecs = shortDecs;
+    public void setShortDesc(String shortDesc) {
+        this.shortDesc = shortDesc;
     }
 
     public long getQuantity() {
@@ -87,14 +101,6 @@ public class Product {
 
     public void setQuantity(long quantity) {
         this.quantity = quantity;
-    }
-
-    public long getSold() {
-        return sold;
-    }
-
-    public void setSold(long sold) {
-        this.sold = sold;
     }
 
     public String getFactory() {
@@ -111,13 +117,6 @@ public class Product {
 
     public void setTarget(String target) {
         this.target = target;
-    }
-
-    @Override
-    public String toString() {
-        return "Product [id=" + id + ", name=" + name + ", price=" + price + ", image=" + image + ", detailDesc="
-                + detailDesc + ", shortDecs=" + shortDecs + ", quantity=" + quantity + ", sold=" + sold + ", factory="
-                + factory + ", target=" + target + "]";
     }
 
 }

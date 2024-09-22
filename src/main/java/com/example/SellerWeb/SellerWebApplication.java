@@ -17,38 +17,39 @@ public class SellerWebApplication {
     public static void main(String[] args) {
         SpringApplication.run(SellerWebApplication.class, args);
         System.out.println("server is running at http:://localhost:8080");
-        // 1. Giao diện dashboard,login,register có thể kiếm trên google sau đó bỏ vào
-        // project
-        // 2.Reuse file jsp bằng thẻ tag <jsp:include> (dùng cho header,footer,sidebar)
-        // --Search keyword(reuse file jsp)
+        // 2 Template front-end kiếm trên mạng rồi ghép vào project nhàn hơn tự code =))
+        // Module product làm tương tự với Module User từ CRUD đến lưu image ảnh
 
-        // 3. Cách lưu trữ file phía server
-        // -Lưu bằng service cloud cho thuê(S3,cloudflare)
-        // -Lưu vào database
-        // -Lưu tại ổ cứng/project
-        // (Đi làm dùng ftp server)
+        // 3.Validate Form input
+        // --Hạn chế rác dữ liệu trước khi lưu vào DB
+        // --Chúng ta có thể validate data ở backend hoặc front-end
+        // ++front-end:Dùng js,htms để validate(tiềm ẩn rủi ro vì có thể bị troll từ
+        // phía brower-chúng ta chỉ nên validate tại front-end nếu data thực sự không
+        // cần bảo mật)
+        // ++backend:dùng java để validate(Bảo mật hơn rất nhiều)
 
-        // 4.- mapping thuộc tính là object ví dụ Role trong User thì form có
-        // path="role.name"
-        // -Để submit file thêm enctype="multipart/form-data" vào form
+        // 4.Trong spring có 2 cách validate dữ liệu phía backend
+        // -Cách 1:thông qua jakarta.validation
+        // -Cách 2:thông qua hibernate validator
 
-        // 5 Sau khi lấy file image từ form , ta code UploadService để handleSave file
-        // -Save hình ảnh ta dùng ByteStream là object FileOutputStream để save(chi tiết
-        // trong code)
+        // 5.Trong dự án này ta dùng luôn Dependency
+        // -<spring-boot-starter-validation> trong Spring Boot bao gồm Jakarta
+        // Validation (trước đây là Bean Validation) và một implementation mặc định là
+        // Hibernate Validator.
+        // - Khi bạn thêm dependency này vào dự án của bạn, Spring Boot sẽ tự
+        // động cấu hình Jakarta Validation với Hibernate Validator.
+        // -Validate dùng annotation @Valid và bindingResultv,bindingResult đặt ngay sau
+        // Valid object
 
-        // 6.các hình thức lưu trữ data(encode,hash,encrypt)
-        // --encode><decode
-        // ++encode/decode data từ dạng này sang dạng khác (2 chiều)
-        // ++không được dùng để bảo mật
-        // ++dùng để nén/giải nén/streaming
+        // 6 Nên hạn chế đặt Bean Name trùng nhau, vì Spring Containner không biết đâu
+        // là Bean nào
+        // Default Spring Container lấy name class làm Bean name
 
-        // --Hashing
-        // ++băm data thành special String(băm 1 chiều-Không thể decode)
-        // ++dùng để lưu information nhạy cảm như password(input nhập password->hash
-        // input sau đó compare với hashedPassword đã lưu trong DB để authenication)
+        // 7 Những CRUD qua JpaRepository là của spring Jpa, nó hỗ trợ 1 vài thao tác
+        // CRUD bằng cách gọi qua hibernate chứ ta chưa thực sự làm việc với hibernate
 
-        // -Encryption
-        // ++encypt/decrypt là mã hóa 2 chiều sử dụng key/password nên an toàn bảo mật
-        // hơn so với encode/decode
+        // 8 Form input của spring MVC support render error khi validation thông qua tag
+        // <form:errors> (form errors này tự check nếu có lỗi , nó sẽ render một tag
+        // span chứa message chúng ta custom)
     }
 }

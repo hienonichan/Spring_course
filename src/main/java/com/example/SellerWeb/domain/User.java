@@ -8,6 +8,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.List;
 
@@ -17,8 +22,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    // Các annotation @NotNull,@Min,@Max,@Valid là của dependency
+    // spring-boot-starter-validation
+    @NotNull
+    @Email
+    @NotEmpty(message = "Email cannot be empty!")
+    @Pattern(message = "Email is not valid!", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[azA-Z0-9.-]+$")
     private String email;
+    @NotNull
+    @Min(value = 2, message = "Password has at least 2 letters!")
     private String password;
+    @NotNull
+    @Min(value = 3, message = "Username must have at least 3 letters!")
     private String name;
     private String address;
     private String phone;

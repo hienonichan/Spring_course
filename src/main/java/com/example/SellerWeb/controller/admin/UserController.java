@@ -10,11 +10,15 @@ import com.example.SellerWeb.domain.User;
 import com.example.SellerWeb.service.UploadService;
 import com.example.SellerWeb.service.UserService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;;
 
 @Controller
 public class UserController {
@@ -50,8 +54,16 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/create")
-    public String storeUser(@ModelAttribute("newUser") User user, @RequestParam("email") String email,
+    public String storeUser(@ModelAttribute("newUser") @Valid User user, BindingResult bindingResult,
             @RequestParam("avatarFile") MultipartFile file) {
+        List<FieldError> errors = bindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(error.getObjectName() + " " + error.getDefaultMessage());
+        }
+        if (bindingResult.hasErrors()) {
+            // Nếu validation error không redirect mà hiện alert lỗi
+            return "/admin/user/create";
+        }
         String fileName = this.uploadService.handleSaveUploadFile(file, "avatar");
         String hashPassword = this.passwordEncoder.encode(user.getPassword());
         user.setPassword(hashPassword);

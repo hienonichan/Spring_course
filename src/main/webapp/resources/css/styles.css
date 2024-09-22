@@ -13175,3 +13175,8 @@ body {
     font-size: 0.75rem;
     border-radius: 0.375rem !important;
 }
+
+.image-detail-product {
+    height: 50%;
+    width: 50%;
+}

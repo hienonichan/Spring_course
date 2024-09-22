@@ -44,14 +44,23 @@
                                             <div class="row">
                                                 <div class="col-12 col-md-6">
                                                     <form:label path="email" class="form-label">Email</form:label>
-                                                    <form:input type="email" path="email" class="form-control" />
+                                                    <c:set var="ErrorEmail">
+                                                        <form:errors path="email" cssClass="invalid-feedback" />
+                                                    </c:set>
+                                                    <form:input type="email" path="email"
+                                                        class="form-control ${not empty ErrorEmail ? 'is-invalid':''}" />
+                                                    ${ErrorEmail}
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <div class="mb-3">
                                                         <form:label path="password" class="form-label">Password
                                                         </form:label>
+                                                        <c:set var="ErrorPassword">
+                                                            <form:errors path="password" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <form:input type="password" path="password"
-                                                            class="form-control" />
+                                                            class="form-control ${not empty ErrorPassword ? 'is-invalid' : ''}" />
+                                                        ${ErrorPassword}
                                                     </div>
                                                 </div>
                                             </div>
@@ -59,8 +68,13 @@
                                             <div class="row">
                                                 <div class="col-12 col-md-6">
                                                     <div class="mb-3">
+                                                        <c:set var="ErrorName">
+                                                            <form:errors path="name" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <form:label path="name" class="form-label">Name</form:label>
-                                                        <form:input type="text" path="name" class="form-control" />
+                                                        <form:input type="text" path="name"
+                                                            class="form-control  ${not empty ErrorName ? 'is-invalid':''}" />
+                                                        ${ErrorName}
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-6">
