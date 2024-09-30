@@ -1,16 +1,8 @@
 package com.example.SellerWeb;
 
-import javax.swing.Spring;
-
-import org.apache.el.stream.Optional;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-import com.example.SellerWeb.domain.User;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class SellerWebApplication {

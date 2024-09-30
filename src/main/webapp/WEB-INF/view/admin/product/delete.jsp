@@ -20,12 +20,12 @@
                 <div id="layoutSidenav_content">
                     <main>
                         <div class="container-fluid px-4">
-                            <h1 class="mt-4">Delete User</h1>
+                            <h1 class="mt-4">Delete Product</h1>
                             <a href="/admin">Dashboard</a>
                             <div class="container mt-5">
                                 <div class="row">
                                     <div class="col mx-auto">
-                                        <h3>Delete User Id : ${Id}</h3>
+                                        <h3>Delete Product Id : ${Id}</h3>
                                         <hr />
                                         <div class="alert alert-danger d-flex align-items-center" role="alert">
                                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"

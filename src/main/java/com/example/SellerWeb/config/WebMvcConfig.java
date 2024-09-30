@@ -38,7 +38,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/image/**").addResourceLocations("/resources/image/");
         registry.addResourceHandler("/client/**").addResourceLocations("/resources/client/");
     }
-
 }
 
 // Phần code config view-engine bằng java

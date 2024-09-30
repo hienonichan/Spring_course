@@ -92,7 +92,8 @@ public class UserController {
     }
 
     @GetMapping("/admin/user/{Id}/delete")
-    public String getDeleteUserPage(@PathVariable("Id") long Id) {
+    public String getDeleteUserPage(@PathVariable("Id") long Id, Model model) {
+        model.addAttribute("Id", Id);
         return "admin/user/delete";
     }
 

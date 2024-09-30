@@ -9,14 +9,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.SellerWeb.domain.Product;
+import com.example.SellerWeb.service.DeleteFileService;
 import com.example.SellerWeb.service.ProductService;
 import com.example.SellerWeb.service.UploadService;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -24,10 +25,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ProductController {
     private final UploadService uploadService;
     private final ProductService productService;
+    private final DeleteFileService deleteFileService;
 
-    public ProductController(UploadService uploadService, ProductService productService) {
+    public ProductController(UploadService uploadService, ProductService productService,
+            DeleteFileService deleteFileService) {
         this.uploadService = uploadService;
         this.productService = productService;
+        this.deleteFileService = deleteFileService;
     }
 
     @GetMapping("/admin/product/{id}")
@@ -68,20 +72,47 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product/{id}/update")
-    public String getUpdateProductPage(@PathVariable("id") Long prodId) {
+    public String getUpdateProductPage(@PathVariable("id") Long prodId, Model model) {
+        Product currentProduct = this.productService.findProductById(prodId);
+        model.addAttribute("newProduct", currentProduct);
         return "admin/product/update";
     }
 
+    @PostMapping("/admin/product/{id}/update")
+    public String postUpdateProduct(@PathVariable("id") Long id, Model model,
+            @RequestParam("productFile") MultipartFile multipartFile,
+            @ModelAttribute("newProduct") Product newProduct) {
+        Product currentProduct = this.productService.findProductById(id);
+        currentProduct.setName(newProduct.getName());
+        currentProduct.setPrice(newProduct.getPrice());
+        currentProduct.setDetailDesc(newProduct.getDetailDesc());
+        currentProduct.setShortDesc(newProduct.getShortDesc());
+        currentProduct.setQuantity(newProduct.getQuantity());
+        currentProduct.setTarget(newProduct.getTarget());
+        currentProduct.setFactory(newProduct.getFactory());
+        String image = currentProduct.getImage();
+        if (!multipartFile.isEmpty()) {
+            this.deleteFileService.handleDeleteFile(currentProduct.getImage(), "product");
+            String newImageName = this.uploadService.handleSaveUploadFile(multipartFile, "product");
+            image = newImageName;
+        }
+        currentProduct.setImage(image);
+        this.productService.handleSaveProduct(currentProduct);
+        return "redirect:/admin/product/" + id;
+    }
+
     @GetMapping("/admin/product/{id}/delete")
-    public String getDeleteProductPage(@PathVariable("id") Long prodId) {
+    public String getDeleteProductPage(@PathVariable("id") Long prodId, Model model) {
+        model.addAttribute("Id", prodId);
         return "admin/product/delete";
     }
 
     @PostMapping("/admin/product/{id}/delete")
     public String postDeleteProduct(@PathVariable("id") Long prodId) {
-        // Xử lí xóa file ảnh của product
-        // xóa product khỏi database
-        //Chỉnh cả bên user
+        Product product = this.productService.findProductById(prodId);
+        String imageName = product.getImage();
+        this.deleteFileService.handleDeleteFile(imageName, "product");
+        this.productService.deleteById(prodId);
         return "redirect:/admin/product";
     }
 }
