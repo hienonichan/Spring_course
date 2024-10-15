@@ -1,6 +1,8 @@
 package com.example.SellerWeb.domain;
 
 import java.util.List;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +33,7 @@ public class Product {
 
     @NotNull()
     @NotEmpty(message = "Must have detail description!")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
 
     @NotNull()
@@ -39,7 +42,11 @@ public class Product {
 
     @Min(value = 1, message = "quanity must be greater or equal 1!")
     private long quantity;
+    @NotNull
     private String factory;
+    @NotNull
+    private int sold = 0;
+    @NotNull
     private String target;
 
     @OneToMany(mappedBy = "product")
@@ -107,6 +114,22 @@ public class Product {
 
     public void setFactory(String factory) {
         this.factory = factory;
+    }
+
+    public int getSold() {
+        return sold;
+    }
+
+    public void setSold(int sold) {
+        this.sold = sold;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
     public String getTarget() {

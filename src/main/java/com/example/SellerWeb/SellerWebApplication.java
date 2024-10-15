@@ -43,5 +43,10 @@ public class SellerWebApplication {
         // 8 Form input của spring MVC support render error khi validation thông qua tag
         // <form:errors> (form errors này tự check nếu có lỗi , nó sẽ render một tag
         // span chứa message chúng ta custom)
+
+        // 9 Về việc render HTML số double bị lỗi E^ thì chúng ta có thể search google
+        // để fix
+        // https://stackoverflow.com/questions/51198011/how-to-prevent-e-when-displaying-double-number-in-jsp
+
     }
 }

@@ -33,8 +33,8 @@
                                                 Product Information
                                             </div>
 
-                                            <img class="image-detail-product" src="/image/product/${product.getImage()}"
-                                                alt="product image">
+                                            <img class="image-detail-product mx-auto"
+                                                src="/image/product/${product.getImage()}" alt="product image">
 
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item">ID : ${product.getId()}</li>
@@ -43,6 +43,8 @@
                                                 <li class="list-group-item">Target : ${product.getTarget()}</li>
                                                 <li class="list-group-item">detailDesc : ${product.getDetailDesc()}</li>
                                                 <li class="list-group-item">shortDesc : ${product.getShortDesc()}</li>
+                                                <li class="list-group-item">Quantity : ${product.getQuantity()}</li>
+                                                <li class="list-group-item">Sold number : ${product.getSold()}</li>
                                                 <li class="list-group-item">image : ${product.getImage()}</li>
                                             </ul>
                                         </div>
