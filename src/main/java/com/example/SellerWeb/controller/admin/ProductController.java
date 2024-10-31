@@ -12,14 +12,12 @@ import com.example.SellerWeb.domain.Product;
 import com.example.SellerWeb.service.DeleteFileService;
 import com.example.SellerWeb.service.ProductService;
 import com.example.SellerWeb.service.UploadService;
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class ProductController {

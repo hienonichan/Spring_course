@@ -20,7 +20,6 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @NotNull()
     @Size(min = 3, message = "Name must have at least 3 letters!")
     private String name;

@@ -123,58 +123,6 @@
                                             <div class="tab-pane active" id="nav-about" role="tabpanel"
                                                 aria-labelledby="nav-about-tab">
                                                 <p>${product.getDetailDesc()}</p>
-
-                                                <div class="px-2">
-                                                    <div class="row g-4">
-                                                        <div class="col-6">
-                                                            <div
-                                                                class="row bg-light align-items-center text-center justify-content-center py-2">
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Weight</p>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">1 kg</p>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="row text-center align-items-center justify-content-center py-2">
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Country of Origin</p>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Agro Farm</p>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="row bg-light text-center align-items-center justify-content-center py-2">
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Quality</p>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Organic</p>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="row text-center align-items-center justify-content-center py-2">
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Сheck</p>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Healthy</p>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="row bg-light text-center align-items-center justify-content-center py-2">
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">Min Weight</p>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <p class="mb-0">250 Kg</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
 
                                         </div>
@@ -195,39 +143,37 @@
                                             <ul class="list-unstyled fruite-categorie">
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Apple</a>
                                                         <span>(3)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Lenovo</a>
                                                         <span>(5)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Dell</a>
                                                         <span>(2)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Asus</a>
                                                         <span>(8)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>HP</a>
                                                         <span>(5)</span>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>

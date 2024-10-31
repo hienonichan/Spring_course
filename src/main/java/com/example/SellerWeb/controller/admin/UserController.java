@@ -61,14 +61,14 @@ public class UserController {
             System.out.println(error.getObjectName() + " " + error.getDefaultMessage());
         }
         if (bindingResult.hasErrors()) {
-            // Nếu validation error không redirect mà hiện alert lỗi
+            // Nếu có lỗi thì các bindingResult sẽ được tự động add vào trong response cũ
+            // Chúng ta chỉ cần trả lại page(Không Redirect)
             return "/admin/user/create";
         }
         String fileName = this.uploadService.handleSaveUploadFile(file, "avatar");
         String hashPassword = this.passwordEncoder.encode(user.getPassword());
         user.setPassword(hashPassword);
         user.setAvatar(fileName);
-        // khi setter Role như này thì spring sẽ auto chèn id vào role_id
         user.setRole(this.userService.getRoleByName(user.getRole().getName()));
         this.userService.handleSaveUser(user);
         return "redirect:/admin/user";

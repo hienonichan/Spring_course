@@ -50,9 +50,7 @@
                 <jsp:include page="../layout/banner.jsp" />
                 <!-- Hero end -->
 
-                <!-- feature start -->
-                <jsp:include page="../layout/feature.jsp" />
-                <!-- feature end -->
+
 
                 <!-- Shop Product Start-->
                 <div class="container-fluid fruite py-5">
@@ -238,6 +236,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- feature start -->
+                                <jsp:include page="../layout/feature.jsp" />
+                                <!-- feature end -->
                                 <div id="tab-4" class="tab-pane fade show p-0">
                                     <div class="row g-4">
                                         <div class="col-lg-12">

@@ -9,44 +9,54 @@ public class SellerWebApplication {
     public static void main(String[] args) {
         SpringApplication.run(SellerWebApplication.class, args);
         System.out.println("server is running at http:://localhost:8080");
-        // 2 Template front-end kiếm trên mạng rồi ghép vào project nhàn hơn tự code =))
-        // Module product làm tương tự với Module User từ CRUD đến lưu image ảnh
+        // Module Authentication
+        // 1 Add template login và register
+        // Căn bản thì do đã config path url của css và js từ lúc làm template home page
+        // -> giờ chỉ cần copy paste thì các css/js nhúng tự mapping
 
-        // 3.Validate Form input
-        // --Hạn chế rác dữ liệu trước khi lưu vào DB
-        // --Chúng ta có thể validate data ở backend hoặc front-end
-        // ++front-end:Dùng js,htms để validate(tiềm ẩn rủi ro vì có thể bị troll từ
-        // phía brower-chúng ta chỉ nên validate tại front-end nếu data thực sự không
-        // cần bảo mật)
-        // ++backend:dùng java để validate(Bảo mật hơn rất nhiều)
+        // 2 Khái niệm về DTO design pattern(Data transfer object)
+        // Đây là một design pattern nhằm để transfer các attribute của object
+        // (Do đặc thù các service khác nhau thì có thể thêm/bớt một số attribute nhất
+        // định)
 
-        // 4.Trong spring có 2 cách validate dữ liệu phía backend
-        // -Cách 1:thông qua jakarta.validation
-        // -Cách 2:thông qua hibernate validator
+        // Ví dụ : với object User trong database sẽ có đầy đủ các attribute
+        // username,password,name,role
+        // Tuy nhiên phía client render (Lí do bảo mật là chính), người ta không phải
+        // lúc nào cũng cần full các attributes(Chỉ cần name,role là đủ render rồi)-->
+        // dùng DTO để cắt/gọt
 
-        // 5.Trong dự án này ta dùng luôn Dependency
-        // -<spring-boot-starter-validation> trong Spring Boot bao gồm Jakarta
-        // Validation (trước đây là Bean Validation) và một implementation mặc định là
-        // Hibernate Validator.
-        // - Khi bạn thêm dependency này vào dự án của bạn, Spring Boot sẽ tự
-        // động cấu hình Jakarta Validation với Hibernate Validator.
-        // -Validate dùng annotation @Valid và bindingResultv,bindingResult đặt ngay sau
-        // Valid object
+        // DTO có thể khiến chúng ta viết code ít đi nhưng vẫn đảm bảo được service
+        // logic. Tuy nhiên áp dụng không đúng cách sẽ làm code khó maintance
 
-        // 6 Nên hạn chế đặt Bean Name trùng nhau, vì Spring Containner không biết đâu
-        // là Bean nào
-        // Default Spring Container lấy name class làm Bean name
+        // Để thực hiện pattern này,ta sẽ tạo một object DTO hứng input sau đó mapping
+        // sang model trong database(mapping dùng thư viện mapstruct.Tuy nhiên trong
+        // khóa học này mapping bằng cơm)
 
-        // 7 Những CRUD qua JpaRepository là của spring Jpa, nó hỗ trợ 1 vài thao tác
-        // CRUD bằng cách gọi qua hibernate chứ ta chưa thực sự làm việc với hibernate
+        // 3
+        // Nhắc lại sơ qua về Dependency injection và nguyên lí thiết kế số 5 trong
+        // SOLID
+        // Dependency Inversion là nguyên lý thiết kế số 5 trong SOLID. Nói về việc giảm
+        // bớt sự phụ thuộc giữa các module trong application
+        // Inversion of Control là tập hợp các design pattern sinh ra để thiết kế nguyên
+        // lý này
 
-        // 8 Form input của spring MVC support render error khi validation thông qua tag
-        // <form:errors> (form errors này tự check nếu có lỗi , nó sẽ render một tag
-        // span chứa message chúng ta custom)
+        // Một số triển khai bao gồm : Dependency Injection,Delegate,Service
+        // Locator,Event,...
+        // Và Dependency Injection là một trong các triển khai đó
 
-        // 9 Về việc render HTML số double bị lỗi E^ thì chúng ta có thể search google
-        // để fix
-        // https://stackoverflow.com/questions/51198011/how-to-prevent-e-when-displaying-double-number-in-jsp
+        // 4 Vấn đề Custom validator
+        // -Đây là phần khó và trong khóa học đã cung cấp source code validator phần
+        // service.
+        // -Như trong module trước ta đã tìm hiểu cách validation khi create
+        // user,product thông qua annotation @Valid và handleError @BindingResult
+        // -Ở đây chúng ta sẽ custom riêng một custom annotation để handle validation
+        // cho phần auth
+        // -Về cách define 1 custom annotation xem trong code hoặc search trên baedulng
+        // Do các custom validator đều implement từ ConstraintValidator nên ta vẫn dùng
+        // @Valid và @BindingResult để catch error validation bình thường
+
+        // -Sau khi custom các annotation xong,ta làm bình thường ,hứng BindingResult và
+        // dùng form:error in ra lỗi validation
 
     }
 }

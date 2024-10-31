@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.SellerWeb.domain.Role;
 import com.example.SellerWeb.domain.User;
+import com.example.SellerWeb.domain.dto.RegisterDTO;
 import com.example.SellerWeb.repository.RoleRepository;
 import com.example.SellerWeb.repository.UserRepository;
 
@@ -44,5 +45,17 @@ public class UserService {
 
     public Role getRoleByName(String name) {
         return this.roleRepository.findByName(name);
+    }
+
+    public User transferRegisterDTOtoUser(RegisterDTO registerDTO) {
+        User user = new User();
+        user.setName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
+        user.setEmail(registerDTO.getEmail());
+        user.setPassword(registerDTO.getPassword());
+        return user;
+    }
+
+    public boolean checkEmailExists(String email) {
+        return this.userRepository.existsByEmail(email);
     }
 }
