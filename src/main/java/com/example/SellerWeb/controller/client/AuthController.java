@@ -57,4 +57,8 @@ public class AuthController {
         return "client/auth/login";
     }
 
+    @GetMapping("/access-reject")
+    public String getAccessRejectPage() {
+        return "client/auth/access-reject";
+    }
 }

@@ -33,6 +33,8 @@
                                                 User Information
                                             </div>
                                             <ul class="list-group list-group-flush">
+                                                <img class="image-detail-product mx-auto"
+                                                    src="/image/avatar/${user.getAvatar()}" alt="user image">
                                                 <li class="list-group-item">ID : ${user.getId()}</li>
                                                 <li class="list-group-item">Role : ${user.getRole().getName()}</li>
                                                 <li class="list-group-item">Email : ${user.getEmail()}</li>

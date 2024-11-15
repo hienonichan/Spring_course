@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.SellerWeb.domain.User;
+import com.example.SellerWeb.service.DeleteFileService;
 import com.example.SellerWeb.service.UploadService;
 import com.example.SellerWeb.service.UserService;
 
@@ -25,11 +26,14 @@ public class UserController {
     private final UserService userService;
     private final UploadService uploadService;
     private final PasswordEncoder passwordEncoder;
+    private final DeleteFileService deleteFileService;
 
-    public UserController(UserService userService, UploadService uploadService, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService, UploadService uploadService,
+            PasswordEncoder passwordEncoder, DeleteFileService deleteFileService) {
         this.userService = userService;
         this.uploadService = uploadService;
         this.passwordEncoder = passwordEncoder;
+        this.deleteFileService = deleteFileService;
     }
 
     @GetMapping("/admin/user/{id}")
@@ -82,11 +86,18 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/{Id}/update")
-    public String postUpdateUser(@PathVariable("Id") long Id, Model model, @ModelAttribute("newUser") User newUser) {
+    public String postUpdateUser(@PathVariable("Id") long Id, Model model, @ModelAttribute("newUser") User newUser,
+            @RequestParam("userFile") MultipartFile file) {
         User currentUser = this.userService.getUserById(Id);
         currentUser.setName(newUser.getName());
         currentUser.setAddress(newUser.getAddress());
         currentUser.setPhone(newUser.getPhone());
+        String image = newUser.getAvatar();
+        if (!file.isEmpty()) {
+            this.deleteFileService.handleDeleteFile(currentUser.getAvatar(), "avatar");
+            image = this.uploadService.handleSaveUploadFile(file, "avatar");
+        }
+        currentUser.setAvatar(image);
         this.userService.handleSaveUser(currentUser);
         return "redirect:/admin/user/" + Id;
     }

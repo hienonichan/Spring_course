@@ -8,6 +8,9 @@ import java.util.List;
 import com.example.SellerWeb.domain.Product;
 import com.example.SellerWeb.service.ProductService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class HomePageController {
     private final ProductService productService;
@@ -22,4 +25,5 @@ public class HomePageController {
         model.addAttribute("productList", productList);
         return "client/homepage/show";
     }
+
 }

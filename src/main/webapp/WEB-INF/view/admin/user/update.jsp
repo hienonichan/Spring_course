@@ -13,6 +13,25 @@
                 <title>Create User</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(() => {
+                        const userFile = $("#userFile")
+                        const orgImage = "${newUser.getAvatar()}"
+                        console.log(orgImage)
+                        if (orgImage) {
+                            const urlImage = "/image/avatar/" + orgImage
+                            console.log(urlImage)
+                            $("#userPreview").attr("src", urlImage)
+                            $("#userPreview").css("display", "block")
+                        }
+                        userFile.change(function (e) {
+                            const imageUrl = URL.createObjectURL(e.target.files[0])
+                            $("#userPreview").attr("src", imageUrl)
+                            $("#userPreview").css("display", "block")
+                        })
+                    })
+                </script>
             </head>
             <jsp:include page="../layout/header.jsp" />
             <div id="layoutSidenav">
@@ -28,7 +47,7 @@
                                         <h1>Update User : ${newUser.getId()}</h1>
                                         <hr />
                                         <form:form action="/admin/user/${Id}/update" method="POST"
-                                            modelAttribute="newUser">
+                                            modelAttribute="newUser" enctype="multipart/form-data">
                                             <div class="mb-3">
                                                 <form:label path="id" class="form-label">Id : </form:label>
                                                 <form:input type="text" path="id" value="${newUser.getId()}"
@@ -57,6 +76,17 @@
                                                 <form:label path="phone" class="form-label">Phone : </form:label>
                                                 <form:input type="text" path="phone" value="${newUser.getPhone()}"
                                                     class="form-control" />
+                                            </div>
+                                            <div class="col-12 mb-3 col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="userFile" class="form-label">User avatar</label>
+                                                    <input class="form-control" type="file" id="userFile"
+                                                        name="userFile" accept=".png, .jpg, .jpeg">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <img style="max-height:250px; display: none;" alt="avatar preview"
+                                                    id="userPreview">
                                             </div>
                                             <hr />
                                             <button type="submit" class="btn btn-primary">Update</button>
