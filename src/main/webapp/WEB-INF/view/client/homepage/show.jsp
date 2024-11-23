@@ -95,19 +95,24 @@
                                                                 </a>
                                                                 <p style="font-size: 13px;">${product.getShortDesc()}
                                                                 </p>
-                                                                <div
-                                                                    class="d-flex justify-content-between flex-lg-wrap">
-                                                                    <p style="font-size: 15; text-align: center; width: 100%;"
-                                                                        class="text-dark fs-5 fw-bold mb-3">
-                                                                        <fmt:formatNumber type="number"
-                                                                            value="${product.getPrice()}" /> VNĐ
-                                                                    </p>
-                                                                    <a href="#"
-                                                                        class="mx-auto border border-secondary rounded-pill px-3 text-primary"><i
+                                                                <p style="font-size: 15; text-align: center; width: 100%;"
+                                                                    class="text-dark fs-5 fw-bold mb-3">
+                                                                    <fmt:formatNumber type="number"
+                                                                        value="${product.getPrice()}" /> VNĐ
+                                                                </p>
+                                                                <form action="/add-to-cart/${product.getId()}"
+                                                                    method="POST">
+                                                                    <input type="hidden" name="${_csrf.parameterName}"
+                                                                        value="${_csrf.token}" />
+                                                                    <button type="submit"
+                                                                        class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+                                                                        <i
                                                                             class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                                        Add to
-                                                                        cart</a>
-                                                                </div>
+                                                                        Add to cart
+                                                                    </button>
+                                                                </form>
+
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -412,6 +417,5 @@
                 <!-- Template Javascript -->
                 <script src="/client/js/main.js"></script>
             </body>
-            crossorigin="anonymous"></script>
 
             </html>

@@ -82,6 +82,7 @@ public class SecurityConfiguration {
                                                                                                   // page phụ thuộc vào
                                                                                                   // Role
                                                 .permitAll())
+
                                 .logout((logout) -> logout.logoutUrl("/logout")
                                                 .logoutSuccessUrl("/login?logout"))
                                 .authorizeHttpRequests(authorize -> authorize
@@ -96,7 +97,7 @@ public class SecurityConfiguration {
                                                              // render
 
                                                 .requestMatchers("/admin/**").hasRole("ADMIN")
-
+                                                .requestMatchers("/register").permitAll()
                                                 .anyRequest().authenticated())
                                 // handling 403 lỗi không đủ Role truy cập
                                 .exceptionHandling(ex -> ex.accessDeniedPage("/access-reject"))

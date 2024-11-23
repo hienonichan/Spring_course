@@ -124,7 +124,6 @@
                                                 aria-labelledby="nav-about-tab">
                                                 <p>${product.getDetailDesc()}</p>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
